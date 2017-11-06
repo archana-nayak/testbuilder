@@ -35,7 +35,7 @@ var detectNetwork = function(cardNumber) {
         return "Maestro";
       }else if((cardNumber.match("^6(011|44|45|46|47|48|49|5)")) && [16,19].includes(cardNumber.length)) {
         return "Discover";
-      }else if(number.match("(^622[2-8][0-9][0-9])|(^6229[0-2][0-5])|(^6221[3-9][0-9])|(^62212[6789])") && [16,17,18,19].includes(cardNumber.length)){
+      }else if(cardNumber.match("(^622[2-8][0-9][0-9])|(^6229[0-2][0-5])|(^6221[3-9][0-9])|(^62212[6789])|(^62[456])|(^628[2345678])") && [16,17,18,19].includes(cardNumber.length)){
         return "China UnionPay";
       }
   	}
