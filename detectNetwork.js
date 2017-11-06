@@ -43,18 +43,44 @@ var detectNetwork = function(cardNumber) {
   	}
 	return undefined;
 };
-// //Number generation for Diner's
+// China UnionPay always has a prefix of 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
+var chinaUnionNumbers = [];
+var chinaArrayRange1 = ["622126","622925"];//prefix.length = 6
+var chinaLenArray1 = [10,11,12,13];//[16-19](Range) - 6 
+unionPayNumberGenerator(chinaArrayRange1,chinaLenArray1,chinaUnionNumbers);
+
+var chinaArrayRange2 = ["624","626"];
+var chinaLenArray2 = [13,14,15,16];
+unionPayNumberGenerator(chinaArrayRange2,chinaLenArray2,chinaUnionNumbers);
+
+var chinaArrayRange3 = ["6282","6288"];
+var chinaLenArray3 = [12,13,14,15];
+unionPayNumberGenerator(chinaArrayRange3,chinaLenArray3,chinaUnionNumbers);
+
+
+function unionPayNumberGenerator(chinaArrayRange, chinaLenArray,chinaUnionNumbers){
+for(var prefix = Number(chinaArrayRange[0]); prefix <= Number(chinaArrayRange[1]); prefix++){
+  for(var j = 0; j < chinaLenArray.length;j++){
+    var number = prefix.toString();
+    for(var k = 0; k < chinaLenArray[j];k++){
+      number = number.concat(Math.floor(Math.random() * 10));
+    }
+    chinaUnionNumbers.push(number);
+    detectNetwork(number);
+  }
+}
+}
+
+//Number generation for Diner's
 var dinerNumbers = [];
 var dinerLength = 12;
 var dinerPrefix = ['38','39'];
-
 for(var i = 0; i < dinerPrefix.length;i++){
   var number = dinerPrefix[i];
   for(var j = 0; j < dinerLength; j++){
     number = number.concat(Math.floor(Math.random() * 10));
   }
-  console.log(number);
-  console.log(detectNetwork(number));
+  detectNetwork(number);
   dinerNumbers.push(number);
 }
 
@@ -62,33 +88,53 @@ for(var i = 0; i < dinerPrefix.length;i++){
 var mcNumbers = [];
 var mcLength = 14;
 var mcPrefix = ['51','52','53','54','55'];
-
 for(var i = 0; i < mcPrefix.length;i++){
   var number = mcPrefix[i];
   for(var j = 0; j < mcLength; j++){
     number = number.concat(Math.floor(Math.random() * 10));
   }
-  console.log(number);
-  console.log(detectNetwork(number));
+  detectNetwork(number);
   mcNumbers.push(number);
 }
- 
+
+// Switch always has a prefix of 4903, 4905, 4911, 4936, 564182, 633110, 6333, or 6759 and a length of 16, 18, or 19.
+//Number generation for Switch
+var sNumbers = [];
+var sLength = [12,14,15];
+var sPrefix = ['4903','4905','4911','4936','6333','6759'];
+switchCardGenerator(sPrefix,sLength,sNumbers);
+sLength = [10,12,13];
+sPrefix = ['564182', '633110'];
+switchCardGenerator(sPrefix,sLength,sNumbers);
+
+function switchCardGenerator(prefixArray,lengthArray,numbers) {
+  for(var i = 0; i < prefixArray.length;i++){
+    for(var k = 0; k < lengthArray.length; k++){
+      var number = prefixArray[i];
+      for(var j = 0; j < lengthArray[k]; j++){
+        number = number.concat(Math.floor(Math.random() * 10));
+      }
+      detectNetwork(number);
+      numbers.push(number);
+    }
+  }
+}
+
 //Number generation for visa
 var visaNumbers = [];
 var visaLength = [12,15,18];
 var visaPrefix = ['4'];
-
 for(var i = 0; i < visaPrefix.length;i++){
   for(var k = 0; k < visaLength.length; k++){
   var number = visaPrefix[i];
   for(var j = 0; j < visaLength[k]; j++){
     number = number.concat(Math.floor(Math.random() * 10));
   }
-  console.log(number);
-  console.log(detectNetwork(number));
+  detectNetwork(number);
   visaNumbers.push(number);
 }
 }
+
 //Number generation for american express
 var americanNumbers = [];
 var americanLength = 13;
@@ -99,8 +145,7 @@ for(var i = 0; i < americanPrefix.length;i++){
   for(var j = 0; j < americanLength; j++){
     number = number.concat(Math.floor(Math.random() * 10));
   }
-  console.log(number);
-  console.log(detectNetwork(number));
+  detectNetwork(number);
   americanNumbers.push(number);
 }
 
@@ -115,62 +160,21 @@ for(var k = 0; k < discoverPrefixArray.length; k++){
     for(var j = 0; j < discoverLenArray[i]; j++){
       discoverNumber = discoverNumber.concat(Math.floor(Math.random() * 10));
     }
-    console.log("number: " + discoverNumber);
-    console.log(detectNetwork(discoverNumber));
+    detectNetwork(discoverNumber);
     discoverNumbers.push(discoverNumber);
   }
 }
-
-
-
-
 // //Number generation for Maestro
 var maestroNumbers = [];
-
 var lenArray = [8,9,10,11,12,13,14,15];
 var prefixArray = ["5018","5020","5038","6304"];
-
 for (var k = 0; k < prefixArray.length; k++) {
   for(var i = 0; i < lenArray.length;i++){
     var beginning = prefixArray[k];
     for(var j = 0; j < lenArray[i]; j++){
       beginning = beginning.concat(Math.floor(Math.random()*10));
     }
-    console.log("number: " + beginning);
-    console.log(detectNetwork(beginning));
+    detectNetwork(beginning);
     maestroNumbers.push(beginning);
   }
-}
-
-// China UnionPay always has a prefix of 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
-
-var chinaUnionNumbers = [];
-var chinaArrayRange1 = ["622126","622925"];//prefix.length = 6
-var chinaLenArray1 = [10,11,12,13];//[16-19](Range) - 6 
-chinaUnionNumbers = unionPayNumberGenerator(chinaArrayRange1,chinaLenArray1,chinaUnionNumbers);
-
-var chinaArrayRange2 = ["624","626"];
-var chinaLenArray2 = [13,14,15,16];
-chinaUnionNumbers = unionPayNumberGenerator(chinaArrayRange2,chinaLenArray2,chinaUnionNumbers);
-
-var chinaArrayRange3 = ["6282","6288"];
-var chinaLenArray3 = [12,13,14,15];
-chinaUnionNumbers = unionPayNumberGenerator(chinaArrayRange3,chinaLenArray3,chinaUnionNumbers);
-
-
-function unionPayNumberGenerator(chinaArrayRange, chinaLenArray,chinaUnionNumbers){
-for(var prefix = Number(chinaArrayRange[0]); prefix <= Number(chinaArrayRange[1]); prefix++){
-  
-  for(var j = 0; j < chinaLenArray.length;j++){
-    //console.log("j: " + j);
-    var number = prefix.toString();
-    for(var k = 0; k < chinaLenArray[j];k++){
-      
-      number = number.concat(Math.floor(Math.random() * 10));
-    }
-    chinaUnionNumbers.push(number);
-    console.log(detectNetwork(number));
-  }
-}
-return chinaUnionNumbers;
 }
