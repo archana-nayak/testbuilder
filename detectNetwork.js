@@ -21,7 +21,7 @@ var detectNetwork = function(cardNumber) {
   // var discover =  {name: "Discover", prefix :[6011,644,645,646,647,648,649,65], length :[16,19]};
   // var cards = [american,diner,visa, mastercard,maestro,discover];
    
-    if(cardNumber.length){
+   if(cardNumber.length){
       if(cardNumber.match("^4") && [13,16,19].includes(cardNumber.length)){
         return "Visa";
       }else if(cardNumber.match("^3[47]") && [15].includes(cardNumber.length)){
@@ -34,7 +34,8 @@ var detectNetwork = function(cardNumber) {
         return "Maestro";
       }else if((cardNumber.match("^6(011|44|45|46|47|48|49|5)")) && [16,19].includes(cardNumber.length)) {
         return "Discover";
-        
+      }else if(number.match("(^622[2-8][0-9][0-9])|(^6229[0-2][0-5])|(^6221[3-9][0-9])|(^62212[6789])") && [16,17,18,19].includes(cardNumber.length)){
+        return "China UnionPay";
       }
   	}
 	return undefined;
