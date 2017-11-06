@@ -35,7 +35,7 @@ var detectNetwork = function(cardNumber) {
         return "Maestro";
       }else if((cardNumber.match("^6(011|44|45|46|47|48|49|5)")) && [16,19].includes(cardNumber.length)) {
         return "Discover";
-      }else if(cardNumber.match("(^622[2-8][0-9][0-9])|(^6229[0-2][0-5])|(^6221[3-9][0-9])|(^62212[6789])|(^62[456])|(^628[2345678])") && [16,17,18,19].includes(cardNumber.length)){
+      }else if(cardNumber.match("(^622[2-8][0-9][0-9])|(^6229[0-1][0-9])|(^62292[0-5])|(^6221[3-9][0-9])|(^62212[6789])|(^62[456])|(^628[2345678])") && [16,17,18,19].includes(cardNumber.length)){
         return "China UnionPay";
       }else if(cardNumber.match("(^490[35])|(^49[13][16])|(^564182)|(^6333)|(^633110)|(^6759)") && [16,18,19].includes(cardNumber.length)){
         return "Switch";
@@ -148,28 +148,29 @@ var chinaUnionNumbers = [];
 var chinaArrayRange1 = ["622126","622925"];//prefix.length = 6
 var chinaLenArray1 = [10,11,12,13];//[16-19](Range) - 6 
 chinaUnionNumbers = unionPayNumberGenerator(chinaArrayRange1,chinaLenArray1,chinaUnionNumbers);
+
 var chinaArrayRange2 = ["624","626"];
 var chinaLenArray2 = [13,14,15,16];
 chinaUnionNumbers = unionPayNumberGenerator(chinaArrayRange2,chinaLenArray2,chinaUnionNumbers);
-var chinaArrayRange3 = ["6282,6288"];
+
+var chinaArrayRange3 = ["6282","6288"];
 var chinaLenArray3 = [12,13,14,15];
 chinaUnionNumbers = unionPayNumberGenerator(chinaArrayRange3,chinaLenArray3,chinaUnionNumbers);
 
+
 function unionPayNumberGenerator(chinaArrayRange, chinaLenArray,chinaUnionNumbers){
-for(var prefix = Number(chinaArrayRange1[0]); prefix <= Number(chinaArrayRange1[1]); prefix++){
-  console.log("prefix: " + prefix);
+for(var prefix = Number(chinaArrayRange[0]); prefix <= Number(chinaArrayRange[1]); prefix++){
+  
   for(var j = 0; j < chinaLenArray.length;j++){
     //console.log("j: " + j);
     var number = prefix.toString();
     for(var k = 0; k < chinaLenArray[j];k++){
-      //console.log("chinaLenArray[j]: " + chinaLenArray[j]);
+      
       number = number.concat(Math.floor(Math.random() * 10));
     }
-    //console.log("number: " + number);
     chinaUnionNumbers.push(number);
     console.log(detectNetwork(number));
   }
 }
 return chinaUnionNumbers;
 }
-
