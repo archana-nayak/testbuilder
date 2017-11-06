@@ -142,6 +142,25 @@ for (var k = 0; k < prefixArray.length; k++) {
   }
 }
 
+// China UnionPay always has a prefix of 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
 
+var chinaArrayRange1 = ["622126","622925"];//prefix.length = 6
+var chinaArrayRange2 = ["624","626"];
+var chinaArrayRange3 = ["6282,6288"];
+var chinaUnionNumbers = [];
+var chinaLenArray = [10,11,12,13];//[16-19](Range) - 6 
+for(var prefix = Number(chinaArrayRange1[0]); prefix <= Number(chinaArrayRange1[1]); prefix++){
+  console.log("prefix: " + prefix);
+  for(var j = 0; j < chinaLenArray.length;j++){
+    //console.log("j: " + j);
+    var number = prefix.toString();
+    for(var k = 0; k < chinaLenArray[j];k++){
+      //console.log("chinaLenArray[j]: " + chinaLenArray[j]);
+      number = number.concat(Math.floor(Math.random() * 10));
+    }
+    console.log("number: " + number);
+    console.log(detectNetwork(number));
+  }
+}
 
 
