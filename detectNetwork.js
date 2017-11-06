@@ -23,7 +23,9 @@ var detectNetwork = function(cardNumber) {
 // in any apparent conflict, you should choose the network with the longer prefix.
    
    if(cardNumber.length){
-      if(cardNumber.match("^4") && [13,16,19].includes(cardNumber.length)){
+      if(cardNumber.match("(^490[35])|(^4911)|(^4936)|(^564182)|(^6333)|(^633110)|(^6759)") && [16,18,19].includes(cardNumber.length)){
+        return "Switch";
+      }else if(cardNumber.match("^4") && [13,16,19].includes(cardNumber.length)){
         return "Visa";
       }else if(cardNumber.match("^3[47]") && [15].includes(cardNumber.length)){
         return "American Express";
@@ -37,9 +39,7 @@ var detectNetwork = function(cardNumber) {
         return "Discover";
       }else if(cardNumber.match("(^622[2-8][0-9][0-9])|(^6229[0-1][0-9])|(^62292[0-5])|(^6221[3-9][0-9])|(^62212[6789])|(^62[456])|(^628[2345678])") && [16,17,18,19].includes(cardNumber.length)){
         return "China UnionPay";
-      }else if(cardNumber.match("(^490[35])|(^49[13][16])|(^564182)|(^6333)|(^633110)|(^6759)") && [16,18,19].includes(cardNumber.length)){
-        return "Switch";
-      }
+      } 
   	}
 	return undefined;
 };
