@@ -144,11 +144,18 @@ for (var k = 0; k < prefixArray.length; k++) {
 
 // China UnionPay always has a prefix of 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
 
-var chinaArrayRange1 = ["622126","622925"];//prefix.length = 6
-var chinaArrayRange2 = ["624","626"];
-var chinaArrayRange3 = ["6282,6288"];
 var chinaUnionNumbers = [];
-var chinaLenArray = [10,11,12,13];//[16-19](Range) - 6 
+var chinaArrayRange1 = ["622126","622925"];//prefix.length = 6
+var chinaLenArray1 = [10,11,12,13];//[16-19](Range) - 6 
+chinaUnionNumbers = unionPayNumberGenerator(chinaArrayRange1,chinaLenArray1,chinaUnionNumbers);
+var chinaArrayRange2 = ["624","626"];
+var chinaLenArray2 = [13,14,15,16];
+chinaUnionNumbers = unionPayNumberGenerator(chinaArrayRange2,chinaLenArray2,chinaUnionNumbers);
+var chinaArrayRange3 = ["6282,6288"];
+var chinaLenArray3 = [12,13,14,15];
+chinaUnionNumbers = unionPayNumberGenerator(chinaArrayRange3,chinaLenArray3,chinaUnionNumbers);
+
+function unionPayNumberGenerator(chinaArrayRange, chinaLenArray,chinaUnionNumbers){
 for(var prefix = Number(chinaArrayRange1[0]); prefix <= Number(chinaArrayRange1[1]); prefix++){
   console.log("prefix: " + prefix);
   for(var j = 0; j < chinaLenArray.length;j++){
@@ -158,9 +165,11 @@ for(var prefix = Number(chinaArrayRange1[0]); prefix <= Number(chinaArrayRange1[
       //console.log("chinaLenArray[j]: " + chinaLenArray[j]);
       number = number.concat(Math.floor(Math.random() * 10));
     }
-    console.log("number: " + number);
+    //console.log("number: " + number);
+    chinaUnionNumbers.push(number);
     console.log(detectNetwork(number));
   }
 }
-
+return chinaUnionNumbers;
+}
 
