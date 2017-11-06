@@ -37,10 +37,11 @@ var detectNetwork = function(cardNumber) {
         return "Discover";
       }else if(cardNumber.match("(^622[2-8][0-9][0-9])|(^6229[0-2][0-5])|(^6221[3-9][0-9])|(^62212[6789])|(^62[456])|(^628[2345678])") && [16,17,18,19].includes(cardNumber.length)){
         return "China UnionPay";
+      }else if(cardNumber.match("(^490[35])|(^49[13][16])|(^564182)|(^6333)|(^633110)|(^6759)") && [16,18,19].includes(cardNumber.length)){
+        return "Switch";
       }
   	}
 	return undefined;
-	
 };
 // //Number generation for Diner's
 var dinerNumbers = [];
