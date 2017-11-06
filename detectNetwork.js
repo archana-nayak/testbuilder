@@ -13,13 +13,14 @@ var detectNetwork = function(cardNumber) {
   // The American Express network always starts with a 34 or 37 and is 15 digits long
   
   // Once you've read this, go ahead and try to implement this function, then return to the console.
-  // var american = {name:"American Express", prefix : [34,37], length : [15]};
-  // var diner = {name:"Diner's Club", prefix : [38,39], length : [14]};
-  // var visa = {name:"Visa", prefix : [40], length : [13,16,19]};
-  // var mastercard = {name:"MasterCard", prefix : [51,52,53,54,55], length : [16]};
-  // var maestro = {name :"Maestro", prefix : [5018,5020,5038,6304], length : [12,13,14,15,16,17,18,19]};
-  // var discover =  {name: "Discover", prefix :[6011,644,645,646,647,648,649,65], length :[16,19]};
-  // var cards = [american,diner,visa, mastercard,maestro,discover];
+  //   STEP FOUR:
+// Excellent work! Write your own tests and make them pass for the last two networks:
+
+// China UnionPay always has a prefix of 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
+// Switch always has a prefix of 4903, 4905, 4911, 4936, 564182, 633110, 6333, or 6759 and a length of 16, 18, or 19.
+
+// Heads up! Switch and Visa seem to have some overlapping card numbers - 
+// in any apparent conflict, you should choose the network with the longer prefix.
    
    if(cardNumber.length){
       if(cardNumber.match("^4") && [13,16,19].includes(cardNumber.length)){
