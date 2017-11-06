@@ -40,5 +40,105 @@ var detectNetwork = function(cardNumber) {
 	return undefined;
 	
 };
+// //Number generation for Diner's
+var dinerNumbers = [];
+var dinerLength = 12;
+var dinerPrefix = ['38','39'];
+
+for(var i = 0; i < dinerPrefix.length;i++){
+  var number = dinerPrefix[i];
+  for(var j = 0; j < dinerLength; j++){
+    number = number.concat(Math.floor(Math.random() * 10));
+  }
+  console.log(number);
+  console.log(detectNetwork(number));
+  dinerNumbers.push(number);
+}
+
+// //Number generation for Mastercard
+var mcNumbers = [];
+var mcLength = 14;
+var mcPrefix = ['51','52','53','54','55'];
+
+for(var i = 0; i < mcPrefix.length;i++){
+  var number = mcPrefix[i];
+  for(var j = 0; j < mcLength; j++){
+    number = number.concat(Math.floor(Math.random() * 10));
+  }
+  console.log(number);
+  console.log(detectNetwork(number));
+  mcNumbers.push(number);
+}
+ 
+//Number generation for visa
+var visaNumbers = [];
+var visaLength = [12,15,18];
+var visaPrefix = ['4'];
+
+for(var i = 0; i < visaPrefix.length;i++){
+  for(var k = 0; k < visaLength.length; k++){
+  var number = visaPrefix[i];
+  for(var j = 0; j < visaLength[k]; j++){
+    number = number.concat(Math.floor(Math.random() * 10));
+  }
+  console.log(number);
+  console.log(detectNetwork(number));
+  visaNumbers.push(number);
+}
+}
+//Number generation for american express
+var americanNumbers = [];
+var americanLength = 13;
+var americanPrefix = ['34','37'];
+
+for(var i = 0; i < americanPrefix.length;i++){
+  var number = americanPrefix[i];
+  for(var j = 0; j < americanLength; j++){
+    number = number.concat(Math.floor(Math.random() * 10));
+  }
+  console.log(number);
+  console.log(detectNetwork(number));
+  americanNumbers.push(number);
+}
+
+// //var discover =  {name: "Discover", prefix :[6011,644,645,646,647,648,649,65], length :[16,19]};
+// //number generation for Discover
+var discoverNumbers = [];
+var discoverLenArray = [12,15];
+var discoverPrefixArray = ["6011","6440","6450","6460","6470","6480","6490","6589"];
+for(var k = 0; k < discoverPrefixArray.length; k++){
+  for(var i = 0; i < discoverLenArray.length; i++){
+    var discoverNumber = discoverPrefixArray[k];
+    for(var j = 0; j < discoverLenArray[i]; j++){
+      discoverNumber = discoverNumber.concat(Math.floor(Math.random() * 10));
+    }
+    console.log("number: " + discoverNumber);
+    console.log(detectNetwork(discoverNumber));
+    discoverNumbers.push(discoverNumber);
+  }
+}
+
+
+
+
+// //Number generation for Maestro
+var maestroNumbers = [];
+
+var lenArray = [8,9,10,11,12,13,14,15];
+var prefixArray = ["5018","5020","5038","6304"];
+
+for (var k = 0; k < prefixArray.length; k++) {
+  for(var i = 0; i < lenArray.length;i++){
+    var beginning = prefixArray[k];
+    for(var j = 0; j < lenArray[i]; j++){
+      beginning = beginning.concat(Math.floor(Math.random()*10));
+    }
+    console.log("number: " + beginning);
+    console.log(detectNetwork(beginning));
+    maestroNumbers.push(beginning);
+  }
+}
+
+
 
 
