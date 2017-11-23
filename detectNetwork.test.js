@@ -107,18 +107,20 @@ describe('MasterCard', function() {
   // Expect syntax is one way to do this, but there are others. 
   // If you want to know more, check out the documentation. 
   //   http://chaijs.com/api/bdd/
-  var expect = chai.expect;
+  var should= chai.should;
  
   it('has a prefix of 51 and a length of 16', function() {
-    expect(detectNetwork('5112345678901234')).to.equal('MasterCard');
+    //expect(detectNetwork('5112345678901234')).to.equal('MasterCard');
+    detectNetwork('5112345678901234').should.equal('MasterCard');
   });
  
   it('has a prefix of 52 and a length of 16', function() {
-    expect(detectNetwork('5212345678901234')).to.equal('MasterCard');
+    // expect(detectNetwork('5212345678901234')).to.equal('MasterCard');
+    detectNetwork('5212345678901234').should.equal('MasterCard');
   });
  
   it('has a prefix of 53 and a length of 16', function() {
-    expect(detectNetwork('5312345678901234')).to.equal('MasterCard');
+    detectNetwork('5312345678901234').should.equal('MasterCard');
   });
  
  
@@ -129,7 +131,7 @@ describe('MasterCard', function() {
   // and should, but that's just for learning), so once you've gotten 
   // these tests to pass using should syntax, refactor your tests to 
   // use either expect or should, but not both. 
-  var should = chai.should();
+  // var should = chai.should();
   
   it('has a prefix of 54 and a length of 16', function() {
     detectNetwork('5412345678901234').should.equal('MasterCard');
@@ -355,27 +357,39 @@ describe('Maestro', function() {
 
 });
 
-//China UnionPay: 6228 series for length 16,17,18,19
+
 describe('China UnionPay', function() {
 
   var should = chai.should();
 
-  it('has a prefix of 6228 and a length of 16', function() {
-    detectNetwork('6228589114678617').should.equal('China UnionPay');
-  });
+  // China UnionPay always has a prefix of 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
 
-  it('has a prefix of 6228 and a length of 17', function() {
-    detectNetwork('62285823074826021').should.equal('China UnionPay');
-  });
+var chinaArrayRange1 = ["622126","622925"];//prefix.length = 6
+var chinaLenArray = [16,17,18,19]; 
+unionPayNumberGenerator(chinaArrayRange1,chinaLenArray);
+var chinaArrayRange2 = ["624","626"];
+unionPayNumberGenerator(chinaArrayRange2,chinaLenArray);
+var chinaArrayRange3 = ["6282","6288"];
+unionPayNumberGenerator(chinaArrayRange3,chinaLenArray);
 
-  it('has a prefix of 6228 and a length of 18', function() {
-    detectNetwork('622858511025242151').should.equal('China UnionPay');
-  });
-
-  it('has a prefix of 6228 and a length of 19', function() {
-    detectNetwork('6228580722704726414').should.equal('China UnionPay');
-  });
-
+function unionPayNumberGenerator(chinaArrayRange, chinaLenArray){
+for(var prefix = Number(chinaArrayRange[0]); prefix <= Number(chinaArrayRange[1]); prefix++){
+  for(var j = 0; j < chinaLenArray.length;j++){
+    var number = prefix.toString();
+    for(var k = 0; k < chinaLenArray[j] - prefix.toString().length;k++){
+      number = number.concat(Math.floor(Math.random() * 10));
+    }
+    // chinaUnionNumbers.push(number);
+    //we call the it() and pass the number, along with the expectation
+    (function(prefix, number){
+      it('has a prefix of ' + prefix +' and a length of ' + chinaLenArray[j] , function() {
+        detectNetwork(number).should.equal('China UnionPay');
+      });
+    })(prefix,number);
+    
+  }
+}
+}
 });
 
 //Switch: 4903 series for length 16,18,19
@@ -383,17 +397,29 @@ describe('Switch', function() {
 
   var should = chai.should();
 
-  it('has a prefix of 4903 and a length of 16', function() {
-    detectNetwork('4903509867743156').should.equal('Switch');
-  });
+var sLength = [16,18,19];
+var sPrefix = ['4903','4905','4911','4936','6333','6759'];
+callGenericGeneratorForMultipleLengths(sPrefix,sLength);
+sPrefix = ['564182', '633110'];
+callGenericGeneratorForMultipleLengths(sPrefix,sLength);
 
-  it('has a prefix of 4903 and a length of 18', function() {
-    detectNetwork('490344050910472177').should.equal('Switch');
-  });
+function callGenericGeneratorForMultipleLengths(prefixArray,lengthArray){
+  for(var i = 0; i < prefixArray.length;i++){
+    for(var k = 0; k < lengthArray.length; k++){
+     var number = prefixArray[i];
+     for(var j = 0; j < lengthArray[k] - prefixArray[i].length; j++){
+      number = number.concat(Math.floor(Math.random() * 10));
+     }
+    
+      (function(i, number){
+      it('has a prefix of ' + prefixArray[i] +' and a length of ' + lengthArray[k] , function() {
+        detectNetwork(number).should.equal('Switch');
+      });
+    })(i,number);
 
-  it('has a prefix of 4903 and a length of 19', function() {
-    detectNetwork('4903936164532768549').should.equal('Switch');
-  });
+    }
+  }
+}
 
 });
 
